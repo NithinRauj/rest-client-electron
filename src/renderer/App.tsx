@@ -1,7 +1,8 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react'
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import Main from './Main';
+import './css/app.css';
 
 console.log('Render react')
 
@@ -13,5 +14,5 @@ const App = () => {
 
 export default App
 
-
-ReactDOM.render(<App />, document.getElementById('root'))
+const root = createRoot(document.getElementById('root'))
+root.render(<App />);
