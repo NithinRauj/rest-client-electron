@@ -7,8 +7,11 @@ export type Param = {
     value: string
 }
 
+type HeadersSectionProps = {
+    id: string
+}
 
-const ParamsSection = () => {
+const HeadersSection = ({ id }: HeadersSectionProps) => {
 
     const [paramsList, setParamsList] = useState<Param[]>([{ index: 0, key: '', value: '' }]);
 
@@ -53,4 +56,4 @@ const ParamsSection = () => {
     )
 }
 
-export default ParamsSection
+export default HeadersSection

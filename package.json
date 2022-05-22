@@ -69,6 +69,7 @@
     "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
     "@electron-forge/maker-zip": "^6.0.0-beta.63",
     "@electron-forge/plugin-webpack": "6.0.0-beta.63",
+    "@types/jsoneditor": "^9.5.1",
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
@@ -92,6 +93,7 @@
     "axios": "^0.27.2",
     "electron-squirrel-startup": "^1.0.0",
     "framer-motion": "^6",
+    "jsoneditor": "^9.7.4",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   }

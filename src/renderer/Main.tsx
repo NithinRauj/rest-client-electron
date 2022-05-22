@@ -2,29 +2,30 @@ import { Box, IconButton, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakr
 import React, { useState } from 'react';
 import { AddIcon } from '@chakra-ui/icons';
 import RequestTab from './components/RequestTab';
-
-type RequestTabProps = {
-    title: string
-}
+import { StoreContext } from './context/StoreContext';
+import actionTypes from './actionTypes';
 
 const Main = () => {
-    const [tabs, setTabs] = useState<RequestTabProps[]>([{ title: 'New Request 1' }]);
+
+    const { appState, dispatch } = React.useContext(StoreContext);
+    const { requests } = appState;
+    const tabs = Object.keys(requests);
 
     const createNewRequest = () => {
-        setTabs([...tabs, { title: `New Request ${tabs.length + 1}` }])
+        dispatch({ type: actionTypes.CREATE_REQUEST, payload: { newTabId: tabs.length + 1 } });
     }
 
     return (
         <Box padding={'15px'}>
             <Tabs>
                 <TabList>
-                    {tabs.map(tab => <Tab>{tab.title}</Tab>)}
+                    {tabs.map(tabId => <Tab>{requests[tabId].title}</Tab>)}
                     <Tab onClick={createNewRequest}><IconButton aria-label='create new request' icon={<AddIcon />} /></Tab>
                 </TabList>
                 <TabPanels>
-                    {tabs.map(() => {
+                    {tabs.map((tabId) => {
                         return <TabPanel>
-                            <RequestTab />
+                            <RequestTab id={tabId} />
                         </TabPanel>
                     })}
                 </TabPanels>

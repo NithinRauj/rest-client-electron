@@ -7,8 +7,11 @@ export type Param = {
     value: string
 }
 
+type ParamsSectionProps = {
+    id: string
+}
 
-const ParamsSection = () => {
+const ParamsSection = ({ id }: ParamsSectionProps) => {
 
     const [paramsList, setParamsList] = useState<Param[]>([{ index: 0, key: '', value: '' }]);
 

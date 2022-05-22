@@ -1,10 +1,14 @@
 import { Button, Flex, Input, Select, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import React from 'react';
+import Body from './BodySection';
 import HeadersSection from './HeadersSection';
 import ParamsSection from './ParamsSection';
 
+type RequestTabProps = {
+    id: string
+}
 
-const RequestTab = () => {
+const RequestTab = ({ id }: RequestTabProps) => {
     return (<>
         <Flex marginBottom={5}>
             <Select size='md' width={'165px'} borderTopRightRadius={'0px'} borderBottomRightRadius={'0px'}>
@@ -20,19 +24,19 @@ const RequestTab = () => {
         <Tabs>
             <TabList>
                 <Tab>Params</Tab>
-                <Tab>Authorizations</Tab>
                 <Tab>Headers</Tab>
                 <Tab>Body</Tab>
             </TabList>
             <TabPanels>
                 <TabPanel>
-                    <ParamsSection />
+                    <ParamsSection id={id} />
                 </TabPanel>
-                <TabPanel>Authorizations section</TabPanel>
                 <TabPanel>
-                    <HeadersSection />
+                    <HeadersSection id={id} />
                 </TabPanel>
-                <TabPanel>Body section</TabPanel>
+                <TabPanel>
+                    <Body />
+                </TabPanel>
             </TabPanels>
         </Tabs>
     </>)

@@ -3,13 +3,14 @@ import React from 'react'
 import { createRoot } from 'react-dom/client';
 import Main from './Main';
 import './css/app.css';
-
-console.log('Render react')
+import Provider from './context/StoreContext';
 
 const App = () => {
-    return <ChakraProvider>
-        <Main />
-    </ChakraProvider>
+    return <Provider>
+        <ChakraProvider>
+            <Main />
+        </ChakraProvider>
+    </Provider>
 }
 
 export default App
