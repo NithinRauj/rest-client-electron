@@ -1,31 +1,46 @@
 import { Box, IconButton, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
-import React, { useState } from 'react';
-import { AddIcon } from '@chakra-ui/icons';
+import React from 'react';
+import { SmallAddIcon } from '@chakra-ui/icons';
 import RequestTab from './components/RequestTab';
-import { StoreContext } from './context/StoreContext';
-import actionTypes from './actionTypes';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from './features/store';
+import { addRequest } from './features/requestsSlice';
+import getUniqueId from './utils/getUniqueId';
+import { RequestType, Request } from './types';
 
 const Main = () => {
 
-    const { appState, dispatch } = React.useContext(StoreContext);
-    const { requests } = appState;
-    const tabs = Object.keys(requests);
+    const requests = useSelector((state: RootState) => state.requests);
+    const dispatch = useDispatch();
 
     const createNewRequest = () => {
-        dispatch({ type: actionTypes.CREATE_REQUEST, payload: { newTabId: tabs.length + 1 } });
+        const newRequestData: Request = {
+            id: getUniqueId(),
+            title: `Request ${requests.length + 1}`,
+            url: '',
+            type: RequestType.get,
+            params: [
+                { paramId: getUniqueId(), key: '', value: '' }
+            ],
+            headers: [
+                { headerId: getUniqueId(), key: '', value: '' }
+            ],
+            body: ''
+        };
+        dispatch(addRequest(newRequestData));
     }
 
     return (
         <Box padding={'15px'}>
             <Tabs>
                 <TabList>
-                    {tabs.map(tabId => <Tab>{requests[tabId].title}</Tab>)}
-                    <Tab onClick={createNewRequest}><IconButton aria-label='create new request' icon={<AddIcon />} /></Tab>
+                    {requests.map(request => <Tab key={request.id} >{request.title}</Tab>)}
+                    <Tab onClick={createNewRequest}><IconButton aria-label='create new request' icon={<SmallAddIcon />} /></Tab>
                 </TabList>
                 <TabPanels>
-                    {tabs.map((tabId) => {
-                        return <TabPanel>
-                            <RequestTab id={tabId} />
+                    {requests.map((request) => {
+                        return <TabPanel key={request.id}>
+                            <RequestTab id={request.id} url={request.url} type={request.type} />
                         </TabPanel>
                     })}
                 </TabPanels>

@@ -90,11 +90,15 @@
     "@chakra-ui/react": "^1.8.8",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@reduxjs/toolkit": "^1.8.3",
+    "@types/uuid": "^8.3.4",
     "axios": "^0.27.2",
     "electron-squirrel-startup": "^1.0.0",
     "framer-motion": "^6",
     "jsoneditor": "^9.7.4",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "react-redux": "^8.0.2",
+    "uuid": "^8.3.2"
   }
 }

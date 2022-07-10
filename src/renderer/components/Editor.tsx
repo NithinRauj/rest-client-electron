@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import JSONEditor from "jsoneditor";
 import "jsoneditor/dist/jsoneditor.css";
+import '../css/app.css';
 
 type EditorProps = {
     json: string
@@ -17,7 +18,9 @@ const Editor = ({ json, onJSONChange }: EditorProps) => {
     }, []);
 
     return (
-        <div ref={container} />
+        <div id='json-editor'>
+            <div ref={container} />
+        </div>
     )
 }
 

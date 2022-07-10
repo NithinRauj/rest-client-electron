@@ -3,10 +3,11 @@ import React from 'react'
 import { createRoot } from 'react-dom/client';
 import Main from './Main';
 import './css/app.css';
-import Provider from './context/StoreContext';
+import { Provider } from 'react-redux';
+import { store } from './features/store';
 
 const App = () => {
-    return <Provider>
+    return <Provider store={store}>
         <ChakraProvider>
             <Main />
         </ChakraProvider>

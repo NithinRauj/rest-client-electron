@@ -1,19 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import { Box } from '@chakra-ui/react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setJsonBody } from '../features/requestsSlice';
+import { RootState } from '../features/store';
 import Editor from './Editor';
 
-const Body = () => {
+type BodySectionProps = {
+    id: string
+}
 
-    const [json, setJson] = useState<string>(null);
+const BodySection = ({ id }: BodySectionProps) => {
+
+    const request = useSelector((state: RootState) => state.requests.find(r => r.id == id));
+    const dispatch = useDispatch();
 
     const onChange = (value: string) => {
-        setJson(value);
+        dispatch(setJsonBody({ id, body: value }));
+
     }
 
     return (
-        <div>
-            <Editor onJSONChange={onChange} json={json} />
-        </div>
+        <Box height={'280'}>
+            <Editor onJSONChange={onChange} json={request.body} />
+        </Box>
     )
 }
 
-export default Body
+export default BodySection
