@@ -39,7 +39,7 @@ const HeadersSection = ({ id }: HeadersSectionProps) => {
                         <Box w={'lg'} maxW={'lg'} height={'40px'} borderWidth={1} borderColor={'#303030'} >
                             <Input placeholder='Some value' border={'none'} height={'40px'} focusBorderColor={'transparent'} value={config.value} onChange={(e) => setHeader(config.headerId, 'value', e.target.value)} />
                         </Box>
-                        <Button colorScheme={'red'} variant={'outline'} onClick={() => deleteHeader(config.headerId)} size={'md'} borderRadius={'5px'} marginLeft={'5px'}>Delete</Button>
+                        <Button colorScheme={'red'} onClick={() => deleteHeader(config.headerId)} size={'md'} borderRadius={'5px'} marginLeft={'5px'}>Delete</Button>
                     </Flex>
                 })}
             </Box>

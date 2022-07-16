@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setJsonBody } from '../features/requestsSlice';
+import { setBodyJson } from '../features/requestsSlice';
 import { RootState } from '../features/store';
 import Editor from './Editor';
 
@@ -15,8 +15,7 @@ const BodySection = ({ id }: BodySectionProps) => {
     const dispatch = useDispatch();
 
     const onChange = (value: string) => {
-        dispatch(setJsonBody({ id, body: value }));
-
+        dispatch(setBodyJson({ id, body: value }));
     }
 
     return (

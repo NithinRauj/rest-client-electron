@@ -17,6 +17,10 @@ const Editor = ({ json, onJSONChange }: EditorProps) => {
         editor.current = new JSONEditor(container.current, { mode: 'code', mainMenuBar: false, onChangeText: onJSONChange }, json);
     }, []);
 
+    useEffect(() => {
+        editor.current && editor.current.updateText(json);
+    }, [json]);
+
     return (
         <div id='json-editor'>
             <div ref={container} />

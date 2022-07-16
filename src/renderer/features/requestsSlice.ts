@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RequestType, Request } from "../types";
+import { RequestType, Request, APIResponse } from "../types";
 import getUniqueId from "../utils/getUniqueId";
 
 
@@ -8,15 +8,13 @@ const initialState: Request[] = [
     {
         id: getUniqueId(),
         title: 'Request 1',
-        url: '',
+        url: 'http://localhost:4000/todos',
         type: RequestType.get,
-        params: [
-            { paramId: getUniqueId(), key: '', value: '' }
-        ],
-        headers: [
-            { headerId: getUniqueId(), key: '', value: '' }
-        ],
-        body: ''
+        params: [],
+        headers: [],
+        body: '',
+        response: { data: '' },
+        loading: false
     }
 ];
 
@@ -29,7 +27,7 @@ const requestsSlice = createSlice({
         },
         deleteRequest: (state, action: PayloadAction<string>) => {
             const index = state.findIndex(a => a.id == action.payload);
-            if (index) {
+            if (index != -1) {
                 state.splice(index, 1);
             }
         },
@@ -41,7 +39,7 @@ const requestsSlice = createSlice({
         },
         setRequestType: (state, action: PayloadAction<{ id: string, type: RequestType }>) => {
             const index = state.findIndex(a => a.id == action.payload.id);
-            if (index) {
+            if (index != -1) {
                 state[index].type = action.payload.type;
             }
         },
@@ -95,10 +93,28 @@ const requestsSlice = createSlice({
                 }
             }
         },
-        setJsonBody: (state, action: PayloadAction<{ id: string, body: string }>) => {
+        setBodyJson: (state, action: PayloadAction<{ id: string, body: string }>) => {
             const index = state.findIndex(a => a.id == action.payload.id);
-            if (index) {
+            if (index != -1) {
                 state[index].body = action.payload.body;
+            }
+        },
+        setResponse: (state, action: PayloadAction<{ id: string } & APIResponse>) => {
+            const index = state.findIndex(a => a.id == action.payload.id);
+            if (index != -1) {
+                state[index].response = { ...state[index].response, ...action.payload };
+            }
+        },
+        clearResponse: (state, action: PayloadAction<{ id: string }>) => {
+            const index = state.findIndex(a => a.id == action.payload.id);
+            if (index != -1) {
+                state[index].response = { data: '' };
+            }
+        },
+        toggleLoadingState: (state, action: PayloadAction<{ id: string }>) => {
+            const index = state.findIndex(a => a.id == action.payload.id);
+            if (index != -1) {
+                state[index].loading = !state[index].loading;
             }
         }
     }
@@ -107,8 +123,9 @@ const requestsSlice = createSlice({
 export const {
     addRequest, deleteRequest, setRequestType,
     setUrl, addHeader, removeHeader,
-    updateHeader, setJsonBody,
-    addParam, removeParam, updateParam
+    updateHeader, setBodyJson: setBodyJson,
+    addParam, removeParam, updateParam,
+    setResponse, clearResponse, toggleLoadingState
 } = requestsSlice.actions;
 
 export default requestsSlice.reducer;
