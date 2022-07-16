@@ -1,5 +1,5 @@
 import { Box, Flex, Heading, IconButton, Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MoonIcon, SmallAddIcon, SunIcon } from '@chakra-ui/icons';
 import RequestTab from './components/RequestTab';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +7,7 @@ import { RootState } from './features/store';
 import { addRequest } from './features/requestsSlice';
 import getUniqueId from './utils/getUniqueId';
 import { RequestType, Request } from './types';
+import loadInterceptors from './utils/loadInterceptors';
 
 const Main = () => {
 
@@ -14,6 +15,11 @@ const Main = () => {
     const dispatch = useDispatch();
     const [tabIndex, setTabIndex] = useState(0);
     const { colorMode, toggleColorMode } = useColorMode();
+
+    useEffect(() => {
+        // Intercepts requests and responses to calculate response time
+        loadInterceptors();
+    }, [])
 
     const createNewRequest = () => {
         const newRequestData: Request = {

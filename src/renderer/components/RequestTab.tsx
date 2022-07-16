@@ -46,12 +46,12 @@ const RequestTab = ({ id, onTabChange }: RequestTabProps) => {
         headerArray.forEach((h) => Object.assign(headers, { [h.key]: h.value }));
 
         axios({ method: type, url: urlW̥ithParams, headers, data: body }).then((res) => {
-            const response = { data: JSON.stringify(res.data), statusCode: res.status, statusText: res.statusText };
+            const response = { data: JSON.stringify(res.data), statusCode: res.status, statusText: res.statusText, responseTime: res.headers['response-time'] };
             dispatch(setResponse({ id, ...response }));
             dispatch(toggleLoadingState({ id }));
         })
             .catch((res: AxiosError) => {
-                const { data, status, statusText } = res.response;
+                const { data = {}, status, statusText = 'Error' } = res.response;
                 const response = { data: JSON.stringify(data), statusCode: status, statusText: statusText };
                 dispatch(setResponse({ id, ...response }));
                 dispatch(toggleLoadingState({ id }));

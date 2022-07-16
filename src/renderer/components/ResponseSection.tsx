@@ -27,19 +27,15 @@ const ResponseSection = ({ id }: ResponseSectionProps) => {
                 <Flex w={'lg'} justifyContent={'space-between'}>
                     <Box>
                         <Text as={'b'}>Status Code</Text>
-                        <Text color={useGreenText ? 'green' : 'red'}>{response.statusCode || ''}</Text>
+                        <Text color={response.data ? (useGreenText ? 'green' : 'red') : 'white'}>{response.statusCode || '-'}</Text>
                     </Box>
                     <Box>
                         <Text as={'b'}>Status Text</Text>
-                        <Text color={useGreenText ? 'green' : 'red'}>{response.statusText || ''}</Text>
+                        <Text color={response.data ? (useGreenText ? 'green' : 'red') : 'white'}>{response.statusText || '-'}</Text>
                     </Box>
                     <Box>
                         <Text as={'b'}>Time</Text>
-                        <Text>22 ms</Text>
-                    </Box>
-                    <Box>
-                        <Text as={'b'}>Size</Text>
-                        <Text>462 B</Text>
+                        <Text>{response.responseTime || '-'}</Text>
                     </Box>
                 </Flex>
             </Flex>
